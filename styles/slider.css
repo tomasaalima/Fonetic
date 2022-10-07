@@ -1,0 +1,48 @@
+@charset "UTF-8";
+
+* {
+    box-sizing: border-box;
+}
+
+h1 {
+    text-align: center;
+}
+
+.Slide {
+    display: none;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+
+.slideContainer {
+    width: 200px;
+    max-width: 200px;
+    position: absolute;
+    left: 40%; top: 55%;
+    margin: auto;
+}
+
+.prevBtn, .nextBtn {
+    cursor: default;
+    position: absolute;
+    top: 20%;
+    width: auto;
+    padding: 2px;
+    color: rgb(0, 0, 0);
+    font-weight: bolder;
+    font-size: 16px;
+}
+
+.prevBtn {
+    right: 180px;   
+}
+
+.nextBtn {
+    left: 180px;
+}
+
+@media only screen and (max-width: 450px) {
+    .prevBtn, .nextBtn {
+        font-size: 16px;
+    }
+}
