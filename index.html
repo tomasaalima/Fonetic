@@ -5,42 +5,72 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="styles/background.css">
-    <link rel="stylesheet" href="styles/home.css">
-    <link rel="stylesheet" href="styles/slider.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 
     <title>Fonetic</title>
-</head>
-<body>
-    <header>
-        <h1>fonetic</h1>
-    </header>
-    <main>
-        <div class="container">
-            <form action="" method="post">
-                <input class="user-name" type="text" id="fname" name="fname" value="name">
-                <div class="slideContainer">
-                    <div class="Slide">
-                    <h1>Easy</h1>
-                    </div>
-                    <div class="Slide">
-                    <h1>Hard</h1>
-                    </div>
-                    <div class="Slide">
-                    <h1>Expert</h1>
-                    </div>
-                    <a class="nextBtn">❯</a>
-                    <a class="prevBtn">❮</a>
-                </div>
-                <input class="start-btn" type="submit" value="start">
-            </form>
 
-            <a href="rank.html"><img class="ranking-icon" src="img/ranking.png" alt="ranking image"></a>
+</head>
+<body class="container d-flex flex-column justify-content-center">
+    <div class="container bg-dark rounded">
+        <div class="row">
+            <div class="col-sm"></div>
+            <form action="game.html" class="col-sm p-3">
+
+              <!--Nome-->
+                <div class="form-group my-3">
+                  <input type="text" class="form-control form-control-lg" placeholder="Name" name="user-name">
+                </div>
+
+                <!--Níveis-->
+                <div>
+                    <div id="carouselExampleControls" class="carousel slide my-3" data-ride="carousel">
+                        <div class="carousel-inner">
+                          <div class="carousel-item active text-center text-white">
+                            <span>EASY</span>
+                          </div>
+                          <div class="carousel-item text-center text-white">
+                            <span>HARD</span>
+                          </div>
+                          <div class="carousel-item text-center text-white">
+                            <span>EXPERT</span>
+                          </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                          <span class="sr-only">Anterior</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                          <span class="sr-only">Próximo</span>
+                        </a>
+                      </div>
+                </div>
+
+                <!--Start-->
+                <button type="submit" class="btn btn-primary btn-block btn-lg">START</button>
+                
+                <!--Icones-->
+                <div class="row my-3 text-center">
+                  <div class="col-sm">
+                    <a href="ranking.html"><img src="assets/img/ranking.png" alt="ranking icon" class="img-fluid"></a>
+                  </div>
+                </div>
+
+              </form>
+            <div class="col-sm"></div>
         </div>
-    </main>
-    <footer>
-        <p>design by: eu</p>
-    </footer>
-    <script src="scripts/slider.js"></script>
+    </div>
 </body>
 </html>

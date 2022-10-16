@@ -1,7 +1,7 @@
 window.onload=function()
 {
     nextImage();
-    var duration=30;
+    var duration=50;
     var display=document.querySelector("#timer");
     startTime(duration,display)
 }
@@ -22,7 +22,7 @@ function startTime(duration,display)
                 nextImage()
              }
              
-        },500)
+        },834)
 }
 
 function nextImage()
@@ -32,7 +32,7 @@ function nextImage()
     const button=document.querySelector('button');
     button.addEventListener('click',function()
     {
-        document.getElementById('somPalavra').src=numImg+".mp3";
+        document.getElementById('somPalavra').src="spider.mp3";
         const audio=document.querySelector('audio');
         audio.play()
     })
