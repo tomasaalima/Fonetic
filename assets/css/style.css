@@ -14,7 +14,7 @@ body {
   background-color: aqua;
   width: 100%;
   animation: progress-bar;
-  animation-duration: 50s;
+  animation-duration: 20s;
   animation-iteration-count: infinite;
 }
 @keyframes progress-bar{
