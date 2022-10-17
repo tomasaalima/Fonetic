@@ -1,3 +1,58 @@
+<?php
+    include_once('db_connection.php');
+
+    $palavras = array();
+    $sons = array();
+    $usados = array();
+
+    $actual = 0;
+
+    $sql = "SELECT palavra, som FROM palavra WHERE nivel = 'EASY'";
+
+    $result = $connection->query($sql);
+
+    $count = 0;
+    while($user_data = mysqli_fetch_assoc($result)){
+        $palavras[$count] = $user_data['palavra'];
+        $sons[$count] = $user_data['som'];
+
+        $count++;
+    }
+
+    function reload($actual, $usados){
+        array_push($usados, $actual);
+        while(in_array($actual, $usados)){
+            global $actual;
+            $actual = rand(0,9);   
+        }
+    }
+
+    $palavras = array_unique($palavras);
+    $sons = array_unique($sons);
+    $usados = array_unique($usados);
+    
+    /*
+    foreach($palavras as &$valor){
+        echo $valor ."<br>";
+    }
+    foreach($sons as &$valor){
+        echo $valor ."<br>";
+    }*/
+
+    $pronuncias = array();
+
+    $a_sql = "SELECT a.pronuncia FROM alternativa a, palavra p WHERE p.nivel = 'EASY' AND a.palavra_id = p.id";
+
+    $a_result = $connection->query($a_sql);
+
+    $a_count = 0;
+    while($a_user_data = mysqli_fetch_assoc($a_result)){
+        $pronuncias[$a_count] = $a_user_data['pronuncia'];
+
+        $a_count++;
+    }
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,6 +82,7 @@
         .btn {
             min-width: 20%;
         }
+
     </style>
 
     <title>Game</title>
@@ -43,7 +99,11 @@
         <!--Game-->
         <div class="container bg-dark rounded text-center rounded">
             <div class="container my-3">
-                <strong class="display-4 text-capitalize text-white">look  
+                <strong class="display-4 text-capitalize text-white">
+                <?php
+                    reload($actual, $usados);
+                    echo $palavras[$actual];
+                ?>
                     
                         <svg class="sound-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-volume-up" viewBox="0 0 16 16" id="btn">
                             <path d="M11.536 14.01A8.473 8.473 0 0 0 14.026 8a8.473 8.473 0 0 0-2.49-6.01l-.708.707A7.476 7.476 0 0 1 13.025 8c0 2.071-.84 3.946-2.197 5.303l.708.707z"/>
@@ -54,8 +114,20 @@
 
                 <!--Botões-->
                 <div class="container my-3">
-                    <button type="button" class="btn btn-outline-info">luuk</button>
-                    <button type="button" class="btn btn-outline-info">loookt</button>
+                    <button type="button" class="btn btn-outline-info">
+                        <?php
+
+                            echo $pronuncias[$actual * 2];
+                            
+                        ?>
+                    </button>
+                    <button type="button" class="btn btn-outline-info">
+                        <?php
+                        
+                        echo $pronuncias[($actual * 2) + 1];
+
+                        ?>
+                    </button>
                 </div>
 
                 <!--Alerta-->
