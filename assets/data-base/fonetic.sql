@@ -37,7 +37,7 @@ CREATE TABLE `alternativa` (
 --
 -- Despejando dados para a tabela `alternativa`
 --
-
+SELECT * FROM alternativa;
 INSERT INTO `alternativa` (`id`, `pronuncia`, `validacao`, `palavra_id`) VALUES
 (1, 'eɪdʒ', 'yes', 1),
 (2, 'aig', 'no', 1),
@@ -153,6 +153,10 @@ INSERT INTO `palavra` (`id`, `palavra`, `som`, `nivel`) VALUES
 -- Índices para tabelas despejadas
 --
 
+-- Consulta realizada para testar a chave estrangeira
+SELECT palavra.palavra  as 'palavra',alternativa.pronuncia as 'pronuncia', alternativa.validacao as 'correta?'
+FROM palavra
+INNER JOIN alternativa ON palavra.id=alternativa.palavra_id;
 --
 -- Índices de tabela `alternativa`
 --
@@ -168,13 +172,16 @@ ALTER TABLE `palavra`
 --
 -- AUTO_INCREMENT para tabelas despejadas
 --
-
+-- Adicionando chave estrangeira na table alternativa
+ALTER TABLE alternativa
+	ADD FOREIGN KEY (palavra_id) REFERENCES palavra(id);
 --
 -- AUTO_INCREMENT de tabela `alternativa`
 --
 ALTER TABLE `alternativa`
   MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
+-- Inserindo chave estrangeira na tabela 
 --
 -- AUTO_INCREMENT de tabela `palavra`
 --
