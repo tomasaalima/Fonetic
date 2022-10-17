@@ -19,6 +19,8 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 
+    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+
     <title>Fonetic</title>
 
 </head>
@@ -26,7 +28,7 @@
     <div class="container bg-dark rounded">
         <div class="row">
             <div class="col-sm"></div>
-            <form action="assets/script/expert.php" class="col-sm p-3">
+            <form id="form" action="#" class="col-sm p-3">
 
               <!--Nome-->
                 <div class="form-group my-3">
@@ -38,13 +40,13 @@
                     <div id="carouselExampleControls" class="carousel slide my-3" data-ride="carousel">
                         <div class="carousel-inner">
                           <div class="carousel-item active text-center text-white">
-                            <span>EASY</span>
+                            <span id="easy">EASY</span>
                           </div>
                           <div class="carousel-item text-center text-white">
-                            <span>HARD</span>
+                            <span id="hard">HARD</span>
                           </div>
                           <div class="carousel-item text-center text-white">
-                            <span>EXPERT</span>
+                            <span id="expert">EXPERT</span>
                           </div>
                         </div>
                         <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -58,9 +60,35 @@
                       </div>
                 </div>
 
-                <!--Start-->
-                <button type="submit" class="btn btn-primary btn-block btn-lg">START</button>
-                
+                <!-- Parte de tratamento das dificuldades -->
+                <script type="text/javascript">
+                  function estaVisivel() {
+                    var fm = document.forms[0];
+                    var el = fm.elements;
+
+                    var painelVisivel = $("#easy").is(":visible");
+
+                    if(painelVisivel){
+                      document.getElementById('form').action = 'assets/script/easy.php';
+                    } else {
+                      painelVisivel = $("#hard").is(":visible");
+                      if(painelVisivel){
+                        document.getElementById('form').action = 'assets/script/hard.php';
+                    } else {
+                      painelVisivel = $("#expert").is(":visible");
+                      if(painelVisivel){
+                        document.getElementById('form').action = 'assets/script/expert.php';
+                    } else {
+                      alert("deu ruim");
+                    }
+                    }
+                    }
+                  }
+                </script>
+
+                <!--Button-->
+                <input type="submit" value="START"  class="btn btn-primary btn-block btn-lg" onclick="estaVisivel()">
+
                 <!--Icones-->
                 <div class="row my-3 text-center">
                   <div class="col-sm">
