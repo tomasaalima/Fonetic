@@ -85,6 +85,14 @@
             color: white;
         }
 
+        .correct:active {
+            background-color: blue;
+        }
+
+        #alert, #alert-2 {
+            display: none;
+        }
+
     </style>
 
     <title>Game</title>
@@ -131,16 +139,79 @@
                         
                     </strong>
 
+                    <script type="text/javascript">
+
+                        function correctAnswer(){
+                            var el = document.querySelector('#alternative-1');
+
+                            var value = el.innerHTML;
+
+                            <?php
+                                $one_sql = "SELECT validacao FROM alternativa WHERE pronuncia = '" . $pronuncias[$actual * 2] . "'";
+                                
+                                $one_result = $connection->query($one_sql);
+
+                                $one_data = mysqli_fetch_assoc($one_result);
+
+                                $confirm = $one_data['validacao'];
+
+                                echo "var confirm = '$confirm'";
+
+                            ?>
+
+                            if(confirm == 'yes'){
+                                var alert = document.querySelector('#alert');
+
+                                alert.style.display = 'block'
+                            } else {
+                                var alert = document.querySelector('#alert-2');
+
+                                alert.style.display = 'block'
+                            }
+
+                        }
+
+                        function correctAnswer2(){
+                            var el = document.querySelector('#alternative-2');
+
+                            var value = el.innerHTML;
+
+                            <?php
+                                $one_sql = "SELECT validacao FROM alternativa WHERE pronuncia = '" . $pronuncias[($actual * 2) + 1] . "'";
+                                
+                                $one_result = $connection->query($one_sql);
+
+                                $one_data = mysqli_fetch_assoc($one_result);
+
+                                $confirm = $one_data['validacao'];
+
+                                echo "var confirm = '$confirm'";
+
+                            ?>
+
+                            if(confirm == 'yes'){
+                                var alert = document.querySelector('#alert');
+
+                                alert.style.display = 'block'
+                            } else {
+                                var alert = document.querySelector('#alert-2');
+
+                                alert.style.display = 'block'
+                            }
+
+                        }
+                    </script>
+
                 <!--Botões-->
                 <div class="container my-3">
-                    <button type="button" class="btn btn-outline-info">
+                    <button id="alternative-1" type="button" class="btn btn-outline-info" onclick="correctAnswer()">
                         <?php
 
                             echo $pronuncias[$actual * 2];
                             
                         ?>
                     </button>
-                    <button type="button" class="btn btn-outline-info">
+                    <button id="alternative-2" type="button" class="btn btn-outline-info" onclick="correctAnswer2()">
                         <?php
                         
                         echo $pronuncias[($actual * 2) + 1];
@@ -150,9 +221,14 @@
                 </div>
 
                 <!--Alerta-->
-                <div class="container my-3">
+                <div id="alert" class="container my-3">
                     <div class="alert alert-success">
                         <strong>Success!</strong> Correct Answer!
+                    </div>
+                </div>
+                <div id="alert-2" class="container my-3">
+                    <div class="alert alert-danger">
+                        <strong></strong> Correct Answer!
                     </div>
                 </div>
             </div>

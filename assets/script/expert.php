@@ -159,14 +159,11 @@
                             ?>
 
                             if(confirm == 'yes'){
-                                el.style.background = '#49FF06AA';
                                 
                                 var alert = document.querySelector('#alert');
 
                                 alert.style.display = 'block'
                             } else {
-                                el.style.background = '#EB4C34AA';
-
                                 var alert = document.querySelector('#alert-2');
 
                                 alert.style.display = 'block'
@@ -193,14 +190,11 @@
                             ?>
 
                             if(confirm == 'yes'){
-                                el.style.background = '#49FF06AA';
                                 
                                 var alert = document.querySelector('#alert');
 
                                 alert.style.display = 'block'
                             } else {
-                                el.style.background = '#EB4C34AA';
-
                                 var alert = document.querySelector('#alert-2');
 
                                 alert.style.display = 'block'
@@ -235,7 +229,7 @@
                 </div>
                 <div id="alert-2" class="container my-3">
                     <div class="alert alert-danger">
-                        <strong>Success!</strong> Correct Answer!
+                        <strong></strong> Correct Answer!
                     </div>
                 </div>
             </div>
