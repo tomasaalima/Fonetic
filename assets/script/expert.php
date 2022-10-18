@@ -52,6 +52,9 @@
         $a_count++;
     }
 
+    $order = array(0,1);
+    shuffle($order);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -146,7 +149,7 @@
                             var value = el.innerHTML;
 
                             <?php
-                                $one_sql = "SELECT validacao FROM alternativa WHERE pronuncia = '" . $pronuncias[$actual * 2] . "'";
+                                $one_sql = "SELECT validacao FROM alternativa WHERE pronuncia = '" . $pronuncias[($actual * 2) + $order[0]] . "'";
                                 
                                 $one_result = $connection->query($one_sql);
 
@@ -177,7 +180,7 @@
                             var value = el.innerHTML;
 
                             <?php
-                                $one_sql = "SELECT validacao FROM alternativa WHERE pronuncia = '" . $pronuncias[($actual * 2) + 1] . "'";
+                                $one_sql = "SELECT validacao FROM alternativa WHERE pronuncia = '" . $pronuncias[($actual * 2) + $order[1]] . "'";
                                 
                                 $one_result = $connection->query($one_sql);
 
@@ -206,18 +209,18 @@
                 <!--Botões-->
                 <div class="container my-3">
                     <button id="alternative-1" type="button" class="btn btn-outline-info" onclick="correctAnswer()">
-                        <?php
 
-                            echo $pronuncias[$actual * 2];
-                            
-                        ?>
+                    <?php
+                    echo $pronuncias[($actual * 2) + $order[0]];
+                    ?>
+                        
                     </button>
                     <button id="alternative-2" type="button" class="btn btn-outline-info" onclick="correctAnswer2()">
-                        <?php
                         
-                        echo $pronuncias[($actual * 2) + 1];
-
-                        ?>
+                    <?php
+                    echo $pronuncias[($actual * 2) + $order[1]];
+                    ?>
+                    
                     </button>
                 </div>
 
@@ -229,11 +232,10 @@
                 </div>
                 <div id="alert-2" class="container my-3">
                     <div class="alert alert-danger">
-                        <strong></strong> Correct Answer!
+                        <strong>Opss!</strong> Wrong Answer!
                     </div>
                 </div>
             </div>
         </div>
-        <script src="assets/script/script.js"></script>
 </body>
 </html>
