@@ -1,59 +1,10 @@
 <?php
     include_once('db_connection.php');
+    include_once('dataManager.php');
 
-    $palavras = array();
-    $sons = array();
-    $usados = array();
-
-    $actual = 0;
-
-    $sql = "SELECT palavra, som FROM palavra WHERE nivel = 'EASY'";
-
-    $result = $connection->query($sql);
-
-    $count = 0;
-    while($user_data = mysqli_fetch_assoc($result)){
-        $palavras[$count] = $user_data['palavra'];
-        $sons[$count] = $user_data['som'];
-
-        $count++;
-    }
-
-    function reload($actual, $usados){
-        array_push($usados, $actual);
-        while(in_array($actual, $usados)){
-            global $actual;
-            $actual = rand(0,9);   
-        }
-    }
-
-    $palavras = array_unique($palavras);
-    $sons = array_unique($sons);
-    $usados = array_unique($usados);
-    
-    /*
-    foreach($palavras as &$valor){
-        echo $valor ."<br>";
-    }
-    foreach($sons as &$valor){
-        echo $valor ."<br>";
-    }*/
-
-    $pronuncias = array();
-
-    $a_sql = "SELECT a.pronuncia FROM alternativa a, palavra p WHERE p.nivel = 'EASY' AND a.palavra_id = p.id";
-
-    $a_result = $connection->query($a_sql);
-
-    $a_count = 0;
-    while($a_user_data = mysqli_fetch_assoc($a_result)){
-        $pronuncias[$a_count] = $a_user_data['pronuncia'];
-
-        $a_count++;
-    }
-
-    $order = array(0,1);
-    shuffle($order);
+    searchWords("EASY");
+    searchPronunces("EASY");
+    rankRegister($name, $punctuation, "EASY");
 
 ?>
 <!DOCTYPE html>
@@ -63,7 +14,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/background.css">
+    <link rel="stylesheet" href="../css/gameElements.css">
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
@@ -77,36 +29,15 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 
-    <style>
-        .sound-icon:hover {
-            color: rgb(184, 21, 21);
-        }
-
-        .icon-container {
-            background: transparent;
-            border: none;
-            color: white;
-        }
-
-        .correct:active {
-            background-color: blue;
-        }
-
-        #alert, #alert-2 {
-            display: none;
-        }
-
-    </style>
-
     <title>Game</title>
 
 </head>
 <body class="container d-flex flex-column justify-content-center">
-    <audio src="" id="somPalavra"></audio>
+    <audio src="#" id="somPalavra"></audio>
 
         <!--Barra de progresso-->
         <div class="progress my-3">
-            <div class="progress-bar"></div>
+            <div id="bar" class="progress-bar"></div>
         </div>   
 
         <!--Game-->
@@ -114,6 +45,7 @@
             <div class="container my-3">
                 <strong class="display-4 text-capitalize text-white">
                 <?php
+                
                     reload($actual, $usados);
                     echo $palavras[$actual];
                 ?>
@@ -145,6 +77,7 @@
                     <script type="text/javascript">
 
                         function correctAnswer(){
+                            
                             var el = document.querySelector('#alternative-1');
 
                             var value = el.innerHTML;
@@ -172,7 +105,7 @@
 
                                 alert.style.display = 'block'
                             }
-
+                            
                         }
 
                         function correctAnswer2(){

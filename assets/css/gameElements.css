@@ -1,0 +1,35 @@
+.sound-icon:hover {
+    color: rgb(184, 21, 21);
+}
+
+.icon-container {
+    background: transparent;
+    border: none;
+    color: white;
+}
+
+.correct:active {
+    background-color: blue;
+}
+
+#alert, #alert-2 {
+    display: none;
+}
+
+.progress-bar {
+    background-color: aqua;
+    width: 100%;
+    animation: progress-bar;
+    animation-duration: 20s;
+    animation-iteration-count: 1;
+  }
+  @keyframes progress-bar{
+    from
+    {
+      width: 100%;
+    }
+    to 
+    {
+      width: 0%;
+    }
+  }
