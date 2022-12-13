@@ -2,7 +2,7 @@
 
     $dbHost = 'localhost'; 
     $dbUsername = 'root'; 
-    $dbPassword = '852879'; 
+    $dbPassword = 'root'; 
     $dbName = 'fonetic';
     
     $connection = new mysqli($dbHost, $dbUsername, $dbPassword, $dbName);
